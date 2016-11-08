@@ -27,7 +27,10 @@ public class RepositorioProdutoNaoPerecivelArray {
 	private int index = -1;
 
 	public RepositorioProdutoNaoPerecivelArray(int size) {
-		super();
+		if(size <= 0){
+			throw new IllegalArgumentException();
+		}
+		
 		this.produtos = new ProdutoNaoPerecivel[size];
 	}
 
@@ -41,13 +44,16 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * @return
 	 */
 	private int procurarIndice(int codigo) {
-		for(int i = 0; i <= this.index; i++){
-			if(produtos[i].getCodigo() == codigo){
-				return i;
+		if(codigo <= 0){
+			throw new IllegalArgumentException();
+		}else{
+			for(int i = 0; i <= index; i++){
+				if (produtos[i].getCodigo()== codigo){
+					return i;
+				}
 			}
+			return -1;
 		}
-		
-		throw new UnsupportedOperationException("Not implemented yet!");
 	}
 
 	/**
@@ -57,26 +63,26 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * @return
 	 */
 	public boolean existe(int codigo) {
-		for(int i = 0; i <= this.index; i++){
+		if(codigo <= 0){
+			throw new IllegalArgumentException();
+		}
+		for(int i = 0; i<= index; i++){
 			if(produtos[i].getCodigo() == codigo){
 				return true;
 			}
-		}	
-		return false;	
+		}return false;
 	}
 
 	/**
 	 * Insere um novo produto (sem se preocupar com duplicatas)
 	 */
 	public void inserir(ProdutoNaoPerecivel produto) {
+		this.aumentoDinamico();
 		if(produto == null){
 			throw new IllegalArgumentException();
 		}
-		
-		this.index += 1;
+		this.index += 1; 
 		this.produtos[index] = produto;
-		
-		throw new UnsupportedOperationException("Not implemented yet!");
 	}
 
 	/**
@@ -85,8 +91,14 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * utilizado.
 	 */
 	public void atualizar(ProdutoNaoPerecivel produto) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(produto == null){
+			throw new IllegalArgumentException();
+		}
+		int indice = this.procurarIndice(produto.getCodigo());
+		if (indice == -1){
+			throw new IllegalArgumentException();
+		}
+		this.produtos[indice] = produto;
 	}
 
 	/**
@@ -97,8 +109,23 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * @param codigo
 	 */
 	public void remover(int codigo) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		
+		if(this.existe(codigo)){
+			
+			ProdutoNaoPerecivel[] prodAux = new ProdutoNaoPerecivel[this.produtos.length];
+			for(int i = 0; i <= this.index; i++){
+				if(produtos[i].getCodigo() != codigo){
+					prodAux[i] = produtos[i];
+				}
+			}
+			//Decrescer o valor do index ao remover o produto
+			this.index -= 1; 
+			this.produtos = prodAux;
+			
+		}else{
+			throw new RuntimeException();
+		}
+		
 	}
 
 	/**
@@ -109,8 +136,27 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * @return
 	 */
 	public ProdutoNaoPerecivel procurar(int codigo) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		
+		int indice = this.procurarIndice(codigo);
+		if( indice != -1){
+			return this.produtos[indice];
+		}else{
+			throw new RuntimeException();
+		}
+	}
+	
+	/**
+	 * Caso o possua uma quantidade de produtos proximo do tamanho máximo do array, 
+	 * o tamanho do mesmo eh dobrado. 
+	 */
+	public void aumentoDinamico(){
+		if(this.index - 1 == this.produtos.length){
+			ProdutoNaoPerecivel[] prodAux = new ProdutoNaoPerecivel[this.produtos.length * (2)];
+			for(int i = 0; i <= this.index; i++){
+				prodAux[i] = this.produtos[i];
+			}
+			this.produtos = prodAux; 
+		}
 	}
 
 }

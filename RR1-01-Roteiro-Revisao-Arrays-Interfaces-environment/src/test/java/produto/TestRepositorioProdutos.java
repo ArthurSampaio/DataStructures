@@ -15,7 +15,7 @@ public class TestRepositorioProdutos {
 	
 	@Test
 	public void testExiste() {
-		assertNull(repositorio.existe(5));
+		assertFalse(repositorio.existe(5));
 	}
 
 	@Test
@@ -35,7 +35,7 @@ public class TestRepositorioProdutos {
 	public void testRemover() {
 		repositorio.inserir(new Produto(5,"Feijao",10.0,"Feijão carioca"));
 		repositorio.remover(5);
-		assertNull(repositorio.existe(5));
+		assertFalse(repositorio.existe(5));
 	}
 
 	@Test

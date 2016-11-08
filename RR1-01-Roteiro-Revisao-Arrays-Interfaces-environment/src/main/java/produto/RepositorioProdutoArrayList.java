@@ -13,87 +13,114 @@ import java.util.ArrayList;
  */
 public class RepositorioProdutoArrayList {
 
-	/**
-	 * A estrutura onde os produtos sao mantidos. Voce nao precisa se preocupar
-	 * por enquanto com o uso de generics em ArrayList.
-	 */
-	private ArrayList produtos;
+   /**
+    * A estrutura onde os produtos sao mantidos. Voce nao precisa se preocupar
+    * por enquanto com o uso de generics em ArrayList.
+    */
+   private ArrayList<Produto> produtos;
 
-	/**
-	 * A posicao do ultimo elemento inserido no array de produtos. o valor
-	 * inicial é -1 para indicar que nenhum produto foi ainda guardado no array.
-	 */
-	private int index = -1;
+   /**
+    * A posicao do ultimo elemento inserido no array de produtos. o valor
+    * inicial é -1 para indicar que nenhum produto foi ainda guardado no array.
+    */
+   private int index = -1;
 
-	public RepositorioProdutoArrayList(int size) {
-		super();
-		this.produtos = new ArrayList();
-	}
+   public RepositorioProdutoArrayList(int size) {
+      super();
+      this.produtos = new ArrayList<Produto>();
+   }
 
-	/**
-	 * Recebe o codigo do produto e devolve o indice desse produto no array ou
-	 * -1 caso ele nao se encontre no array. Esse método é util apenas na
-	 * implementacao com arrays por questoes de localizacao. Outras classes que
-	 * utilizam outras estruturas internas podem nao precisar desse método.
-	 * 
-	 * @param codigo
-	 * @return
-	 */
-	private int procurarIndice(int codigo) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
-	}
+   /**
+    * Recebe o codigo do produto e devolve o indice desse produto no array ou
+    * -1 caso ele nao se encontre no array. Esse método é util apenas na
+    * implementacao com arrays por questoes de localizacao. Outras classes que
+    * utilizam outras estruturas internas podem nao precisar desse método.
+    * 
+    * @param codigo
+    * @return
+    */
+   private int procurarIndice(int codigo) {
+      if (codigo < 0) {
+         throw new IllegalArgumentException();
+      }
+      for (int i = 0; i < this.produtos.size(); i++) {
+         if (this.produtos.get(i).getCodigo() == codigo) {
+            return i;
+         }
+      }
+      return -1;
+   }
 
-	/**
-	 * Recebe o codigo e diz se tem produto com esse codigo armazenado
-	 * 
-	 * @param codigo
-	 * @return
-	 */
-	public boolean existe(int codigo) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
-	}
+   /**
+    * Recebe o codigo e diz se tem produto com esse codigo armazenado
+    * 
+    * @param codigo
+    * @return
+    */
+   public boolean existe(int codigo) {
+      if (this.procurarIndice(codigo) != -1) {
+         return true;
+      } else {
+         return false;
+      }
+   }
 
-	/**
-	 * Insere um novo produto (sem se preocupar com duplicatas)
-	 */
-	public void inserir(Produto produto) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
-	}
+   /**
+    * Insere um novo produto (sem se preocupar com duplicatas)
+    */
+   public void inserir(Produto produto) {
+      if (produto != null) {
+         this.produtos.add(produto);
+      } else {
+         throw new RuntimeException();
+      }
+   }
 
-	/**
-	 * Atualiza um produto armazenado ou retorna um erro caso o produto nao
-	 * esteja no array. Note que, para localizacao, o código do produto será
-	 * utilizado.
-	 */
-	public void atualizar(Produto produto) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
-	}
+   /**
+    * Atualiza um produto armazenado ou retorna um erro caso o produto nao
+    * esteja no array. Note que, para localizacao, o código do produto será
+    * utilizado.
+    */
+   public void atualizar(Produto produto) {
+      int indice = this.procurarIndice(produto.getCodigo());
+      if (indice == -1) {
+         throw new RuntimeException();
+      } else {
+         this.produtos.remove(indice);
+         //adding in the same position. 
+         this.produtos.add(indice, produto);
+      }
+   }
 
-	/**
-	 * Remove produto com determinado codigo, se existir, ou entao retorna um
-	 * erro, caso contrário. Note que a remoção NÃO pode deixar "buracos" no
-	 * array.
-	 * 
-	 * @param codigo
-	 */
-	public void remover(int codigo) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
-	}
+   /**
+    * Remove produto com determinado codigo, se existir, ou entao retorna um
+    * erro, caso contrário. Note que a remoção NÃO pode deixar "buracos" no
+    * array.
+    * 
+    * @param codigo
+    */
+   public void remover(int codigo) {
+      int indice = this.procurarIndice(codigo);
+      if (indice != -1) {
+         this.produtos.remove(indice);
+      } else {
+         throw new RuntimeException();
+      }
+   }
 
-	/**
-	 * Retorna um produto com determinado codigo ou entao um erro, caso o
-	 * produto nao esteja armazenado
-	 * 
-	 * @param codigo
-	 * @return
-	 */
-	public Produto procurar(int codigo) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
-	}
+   /**
+    * Retorna um produto com determinado codigo ou entao um erro, caso o
+    * produto nao esteja armazenado
+    * 
+    * @param codigo
+    * @return
+    */
+   public Produto procurar(int codigo) {
+      for (Produto produto : this.produtos) {
+         if (produto.getCodigo() == codigo) {
+            return produto;
+         }
+      }
+      return null;
+   }
 }

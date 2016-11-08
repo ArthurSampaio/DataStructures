@@ -8,6 +8,18 @@
 	<packaging>jar</packaging>
 	<name>Submissao de roteiro</name>
 	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>ufcg-maven2</id>
+			<url>http://web.cloud.lsd.ufcg.edu.br:44174/nexus/content/repositories/br.edu.ufcg</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
