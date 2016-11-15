@@ -27,8 +27,63 @@ public interface B implements A{
 	public void m(String obj){
 	}
 	
-
 }
 
 ```
+
+## 4. Seria possível criar uma classe C.java implementando a interface A.java e mesmo assim a implementação do método m na classe C poderia funcionar para diversos tipos de parâmetros? Implemente uma solução.
+
+```java
+
+public class C implements A{
+	
+	public void m(String obj){
+		//TODO
+	}
+	
+}
+
+```
+
+
+##5. O que acontece quando declaramos em uma classe parametrizada um método da seguinte forma: public void m(Collection<T> obj)?
+
+O método acima diz respeito a um método parametrizado. Quando o objeto que contém este método for instanciado alterando o generics para algum tipo qualquer, automáticamente, o método "m" terá como parâmetro o tipo que foi alterado no generics na instanciação do objeto. 
+
+##6. O que acontece quando declaramos em uma classe parametrizada um método da seguinte forma: public void m(Collection<?> obj)?
+
+A interrogação (?) significa que o parâmetro do método m é uma coleção de tipos desconhecido, ou uma coleção de qualquer tipo de tipos. Contudo, há uma grande desvantagem, não é possível escrever código que se relacione com "obj", pois não é possível saber o tipo de ? e consequementemente não é possível determinar a hierarquia de ?.
+
+##7. O que acontece quando declaramos em uma classe parametrizada um método da seguinte forma: public void m(? extends T obj)?
+
+Em contraste com a questão anterior, o método m do método acima __recebe como parâmetro qualquer tipo que seja subtipo (herança) de T__, onde T é definido na instanciação da classe. 
+
+##8. O que acontece quando declaramos em uma classe parametrizada um método da seguinte forma: public void m(? super T obj)?
+
+Semelhante a questão 7, o método m recebe como parâmetro qualquer objeto que seja superclase do tipo genérico T. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
