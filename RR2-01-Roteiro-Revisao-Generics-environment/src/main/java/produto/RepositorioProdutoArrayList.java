@@ -44,7 +44,7 @@ public class RepositorioProdutoArrayList <E extends Produto> implements Reposito
       if (codigo < 0) {
          throw new IllegalArgumentException();
       }
-      for (int i = 0; i < index; i++) {
+      for (int i = 0; i <= index; i++) {
          if (this.produtos.get(i).getCodigo() == codigo) {
             return i;
          }

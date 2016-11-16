@@ -120,20 +120,3 @@ public class Vetor<T extends Comparable<T>> {
 
 }
 
-class ComparadorMaximo implements Comparator<Aluno> {
-
-	@Override
-	public int compare(Aluno o1, Aluno o2) {
-		return (int) (o1.getMedia() - o2.getMedia());
-	}
-
-}
-
-class ComparadorMinimo implements Comparator<Aluno> {
-
-	@Override
-	public int compare(Aluno o1, Aluno o2) {
-		return (int) (o2.getMedia() - o1.getMedia());
-	}
-
-}

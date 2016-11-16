@@ -1,5 +1,7 @@
 package vetor;
 
+import java.util.Comparator;
+
 public class Aluno implements Comparable<Aluno> {
 	private String nome;
 	private double media;
@@ -38,6 +40,30 @@ public class Aluno implements Comparable<Aluno> {
 			result = (this.compareTo((Aluno) obj) == 0);
 		}
 		return result;
+	}
+	
+	public String toString(){
+		return this.getNome() + " " + this.getMedia();
+	}
+
+}
+
+
+
+class ComparadorMinimo implements Comparator<Aluno> {
+
+	@Override
+	public int compare(Aluno o1, Aluno o2) {
+		return (int) (o2.getMedia() - o1.getMedia());
+	}
+
+}
+
+class ComparadorMaximo implements Comparator<Aluno> {
+
+	@Override
+	public int compare(Aluno o1, Aluno o2) {
+		return (int) (o1.getMedia() - o2.getMedia());
 	}
 
 }

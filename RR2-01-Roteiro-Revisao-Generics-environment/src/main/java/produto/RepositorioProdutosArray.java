@@ -24,7 +24,7 @@ public class RepositorioProdutosArray <T extends Produto> implements Repositorio
 	@Override
 	public boolean existe(int codigo) {
 		
-		for(int i = 0; i < index; i++){
+		for(int i = 0; i <= index; i++){
 			if(produtos[i].getCodigo()==codigo){
 				return true;
 			}
@@ -39,7 +39,7 @@ public class RepositorioProdutosArray <T extends Produto> implements Repositorio
 	}
 
 	private int findInd(int codigo){
-		for(int i = 0; i<index; i++){
+		for(int i = 0; i<=index; i++){
 			if(produtos[i].getCodigo()==codigo){
 				return i;
 			}

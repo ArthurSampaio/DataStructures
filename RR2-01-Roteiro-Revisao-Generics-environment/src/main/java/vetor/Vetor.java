@@ -9,7 +9,7 @@ import java.util.Comparator;
  * @author Adalberto
  *
  */
-public class Vetor<T> {
+public class Vetor<T extends Comparable<T>> {
 
 	// O array interno onde os objetos manipulados são guardados
 	private T[] arrayInterno;
@@ -53,13 +53,22 @@ public class Vetor<T> {
 
 	// Remove um objeto do vetor
 	public T remover(T o) {
-		// TODO Remove the exception and implement your code
-		throw new UnsupportedOperationException("Not implemented yet!");
+		
+		for(int i = 0; i <= index; i++){
+			if(arrayInterno[i].equals(o)){
+				T obj = arrayInterno[i];
+				arrayInterno[i] = arrayInterno[index];
+				arrayInterno[index] = null;
+				index -= 1;
+				return obj;
+			}
+			
+		}return null;
 	}
 
 	// Procura um elemento no vetor
 	public T procurar(T o) {
-		for(int i = 0; i < index; i ++){
+		for(int i = 0; i <= index; i ++){
 			if(arrayInterno[i].equals(o)){
 				return arrayInterno[i];
 			}
@@ -68,14 +77,51 @@ public class Vetor<T> {
 
 	// Diz se o vetor está vazio
 	public boolean isVazio() {
-		// TODO Remove the exception and implement your code
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(index == -1)
+			return true;
+		else
+			return false;
 	}
 
 	// Diz se o vetor está cheio
 	public boolean isCheio() {
-		// TODO Remove the exception and implement your code
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(index >= tamanho - 1){
+			return true;
+		}else
+			return false;
+	}
+	
+	public T maximo() {
+		
+		if(!isVazio()){
+			T max = arrayInterno[0];
+			for(int i = 1; i <= index; i++){
+				if(comparadorMaximo.compare(max, arrayInterno[i]) < 0){
+					max = arrayInterno[i];
+				}
+				
+			}
+			return max;
+		}else{
+			return null;
+		}
+		
+		
 	}
 
+	public T minimo() {
+		if(!isVazio()){
+			T max = arrayInterno[0];
+			for(int i = 1; i <= index; i++){
+				if(comparadorMinimo.compare(max, arrayInterno[i]) < 0){
+					max = arrayInterno[i];
+				}
+				
+			}
+			return max;
+		}else{
+			return null;
+		}
+
+	}
 }
