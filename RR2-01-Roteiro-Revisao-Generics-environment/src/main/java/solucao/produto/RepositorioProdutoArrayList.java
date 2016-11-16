@@ -1,6 +1,7 @@
 package solucao.produto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import produto.Produto;
 
@@ -20,7 +21,7 @@ public class RepositorioProdutoArrayList implements
 	 * A estrutura onde os produtos sao mantidos. Voce nao precisa se preocupar
 	 * por enquanto com o uso de generics em ArrayList.
 	 */
-	private ArrayList<Produto> produtos;
+	private List<Produto> produtos;
 
 	public RepositorioProdutoArrayList(int size) {
 		super();

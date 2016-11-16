@@ -1,6 +1,7 @@
 package produto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe que representa um repositório de produtos usando ArrayList como
@@ -11,13 +12,13 @@ import java.util.ArrayList;
  *
  * @author Adalberto
  */
-public class RepositorioProdutoArrayList {
+public class RepositorioProdutoArrayList <E extends Produto> implements RepositorioProdutos<E> {
 
    /**
     * A estrutura onde os produtos sao mantidos. Voce nao precisa se preocupar
     * por enquanto com o uso de generics em ArrayList.
     */
-   private ArrayList<Produto> produtos;
+   private List<E> produtos;
 
    /**
     * A posicao do ultimo elemento inserido no array de produtos. o valor
@@ -27,7 +28,7 @@ public class RepositorioProdutoArrayList {
 
    public RepositorioProdutoArrayList(int size) {
       super();
-      this.produtos = new ArrayList<Produto>();
+      this.produtos = new ArrayList<E>();
    }
 
    /**
@@ -68,7 +69,7 @@ public class RepositorioProdutoArrayList {
    /**
     * Insere um novo produto (sem se preocupar com duplicatas)
     */
-   public void inserir(Produto produto) {
+   public void inserir(E produto) {
       if (produto != null) {
          this.produtos.add(produto);
          index += 1;
@@ -82,7 +83,7 @@ public class RepositorioProdutoArrayList {
     * esteja no array. Note que, para localizacao, o código do produto será
     * utilizado.
     */
-   public void atualizar(Produto produto) {
+   public void atualizar(E produto) {
       int indice = this.procurarIndice(produto.getCodigo());
       if (indice == -1) {
          throw new RuntimeException();
@@ -117,12 +118,12 @@ public class RepositorioProdutoArrayList {
     * @param codigo
     * @return
     */
-   public Produto procurar(int codigo) {
-      for (Produto produto : this.produtos) {
-         if (produto.getCodigo() == codigo) {
-            return produto;
-         }
+   public E procurar(int codigo) {
+      int ind = this.procurarIndice(codigo);
+      if(ind != -1){
+    	  return this.produtos.get(ind);
+      }else{
+    	  throw new RuntimeException();
       }
-      return null;
    }
 }
