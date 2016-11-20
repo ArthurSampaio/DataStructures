@@ -25,7 +25,7 @@ public class MergeSort<T extends Comparable<T>> implements Sorting<T> {
 	@SuppressWarnings("unchecked")
 	private void merge(T[] v, int ini, int med, int fim) {
 		T[] helper = (T[]) new Comparable[v.length]; 
-		for(int i = 0; i < v.length; i ++){
+		for(int i = ini; i < fim + 1; i ++){
 			helper[i] = v[i];
 		}
 		
@@ -36,7 +36,7 @@ public class MergeSort<T extends Comparable<T>> implements Sorting<T> {
 		
 		while(i <= med && j<=fim){
 			
-			if( (helper[i].compareTo(helper[j])>0) ){
+			if( (helper[i].compareTo(helper[j])<0) ){
 				v[k] = helper[i];
 				i++;		
 			}else{

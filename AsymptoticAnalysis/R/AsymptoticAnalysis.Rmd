@@ -21,7 +21,7 @@ library(plotly)
 
 A metodologia para calcular os valores de tempos de execução de cada algoritmo com as mais variadas entradas foi implementada da seguinte forma:
 
-1. Escolhe-se inteiros que variam de tamanho de 30000 à 100000 com intervalos de 1000 em cada análise. 
+1. Escolhe-se inteiros que variam de tamanho de 20000 à 50000 com intervalos de 1000 em cada análise. 
 
 2. Para cada inteiro é gerado um array rândomico de tamanho igual.
 
@@ -30,7 +30,7 @@ A metodologia para calcular os valores de tempos de execução de cada algoritmo
 4. É escrito um csv com os dados encontrados. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-sort.data <- read.csv("~/workspace/AsymptoticAnalysis/sort.data.csv", header=T)
+sort.data <- read.csv("~/workspace/DataStructures/AsymptoticAnalysis/sort.data.csv", header=T)
 
 names(sort.data) = c("algorithm", "time", "sample")
 
@@ -51,13 +51,10 @@ Olhando rapidamente para o plot acima é possível tirar algumas conclusões:
 
 * O pior algorítmo de ordenação, nos nossos dados, é o MergeSort. 
 
-Nas curvas do _SelectionSort_ e _InsertionSort_ é possível observar que eles obedecem a um formato semalhante à funcão $y = n^{2}$, isto demonstra que o tempo de execução calculado nos nossos dados, condiz com a literatura, onde o $\Theta = n^{2}$ é o valor do tempo de execução para ambos os algorítmos. 
+Nas curvas do _SelectionSort_ e _InsertionSort_ é possível observar que eles obedecem a um formato semalhante à funcão $y = n^{2}$, isto demonstra que o tempo de execução calculado nos nossos dados, condiz com a literatura, onde o $\Theta = n^{2}$ é o valor do tempo de execução para ambos os algorítmos. Além disto, é possivel observa que o Selection e o Insertion, respectivamente, apresentam os maiores valores no eixo y (tempo de execução) e por isto são os algorítmos com a menor eficiência dentre os analisados. 
 
-Contudo, divergimos da teoria no segundo ponto, pois, como visto na literatura, $\Theta(MergeSort) = n.log(n)$ o que vai contra o plot acima, uma vez que, o mergeSort é o que apresenta o maior custo de tempo de execução dentre todos os outros analisados. 
+Também concordando com a literatura, os algorítmos com melhores eficiências - que no nosso gráfico é apresentado por possuirem um menor tempo de execução - são os QuickSort e MergeSort, ambos com $\Theta = n.log(n)$. É possível observar que o desempenho para o Quick é notoriamente mais eficiente que o MergeSort.
 
-Após uma rápida investigada nos fóruns, achei os seguintes links do StackOverFlow ([Aqui](http://stackoverflow.com/questions/34549584/why-is-my-mergesort-shellsort-slower-than-insertion-sort), e [aqui](http://stackoverflow.com/questions/19329425/why-is-my-merge-sort-code-slower-than-insertion-sort))), que tratam sobre o assunto do porquê o mergeSort aparacer mais lento nas análises e as conclusões são as seguintes:
-
-Para o mergeSort ser realmente eficaz, é necessário utilizar apontadores para copiar os vetores, ao contrário do que é feito no meu algorítmo, onde copio os vetores por valor. Porém, não é possível, em java, utilizar apontadores algo impraticável no contexto da JVM. 
 
 
 

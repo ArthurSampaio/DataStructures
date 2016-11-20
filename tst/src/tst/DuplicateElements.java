@@ -7,7 +7,6 @@ class DuplicateElements {
 	public static void main(String[] args){
 		Scanner sc = new Scanner(System.in);
 		String[] data = sc.nextLine().split(" ");
-		System.out.println();
 
 		int[] array = new int[data.length];	
 		
@@ -23,7 +22,7 @@ class DuplicateElements {
 				duplicated = true;
 			
 		}
-		System.out.println(duplicated + "\n");
+		System.out.println(duplicated);
 		
 	}
 

@@ -1,9 +1,9 @@
 package sorting;
-
 public class QuickSort<T extends Comparable<T>> implements Sorting<T> {
 
 	@Override
 	public void sort(T[] v) {
+		quickSort(v, 0, v.length -1);
 		
 		
 	}
@@ -31,9 +31,9 @@ public class QuickSort<T extends Comparable<T>> implements Sorting<T> {
 				i++;
 				swap(v,i,j);
 				
-			}
+			}j++;
 						
-		}j++;
+		}
 		swap(v, ini, i);
 		return i;
 		

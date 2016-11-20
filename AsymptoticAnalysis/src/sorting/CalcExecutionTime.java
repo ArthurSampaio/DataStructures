@@ -19,7 +19,7 @@ public class CalcExecutionTime {
 	private static Sorting merge = new MergeSort<Integer>();
 	private static Sorting quick = new QuickSort<Integer>();
 	private static Sorting select = new SelectionSort<Integer>();
-	private static Sorting[] all = {insert, merge, quick, select};
+	private static Sorting[] all = {insert, merge, select, quick};
 	
 	
 	public static void main(String[] args) throws IOException{
@@ -38,14 +38,14 @@ public class CalcExecutionTime {
 		
 		System.out.println("Start the execution of all algorithms");
 		
-		for(int i = 30000; i<=100000; i+=1000){
+		for(int i = 10000; i<=20000; i+=1000){
 			
 			
 			Integer[] v = generateArray(i);
 			
 			for(Sorting sort : all){
-				
-				
+			
+				System.out.println(sort.toString());
 				String line = sort.toString() + "," + executeSortingAlgorithm(sort, v) + "," +
 							i;
 				br.write(line);
