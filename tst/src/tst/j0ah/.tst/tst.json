@@ -1,0 +1,14 @@
+{
+  "files": {
+    "DuplicateElements.java": {
+      "category": "answer",
+      "data": "\nimport java.util.Scanner;\n\nclass DuplicateElements {\n\t\n\tpublic static void main(String[] args){\n\t\tScanner sc = new Scanner(System.in);\n\t\tString[] data = sc.nextLine().split(\" \");\n\t\tint[] array = new int[data.length];\t\n\t\t\n\t\tfor(int i = 0; i < data.length; i++){\n\t\t\tarray[i] = Integer.parseInt(data[i]);\n\t\t}\n\n\t\tquickSort(array, 0, array.length);\n\t\tboolean duplicated = false; \n\t\t\n\t\tfor(int i = 0; i < array.length-1; i++){\n\t\t\tif(array[i] == array[i+1])\n\t\t\t\tduplicated = true;\n\t\t\t\n\t\t}\n\t\tSystem.out.println(duplicated + \"\\n\");\n\t\t\n\t}\n\n\tpublic static void quickSort(int[] v, int ini, int fim){\n\t\t\n\t\t\n\t\tif(ini<fim){\n\t\t\tint ind_pivot = particao(v, ini, fim);\n\t\t\tquickSort(v, ini, ind_pivot -1 );\n\t\t\tquickSort(v, ind_pivot + 1, fim);\n\t\t\t\t\t\t\n\t\t}\n\t\t\t\n\t}\n\n\tprivate static int particao(int[] v, int ini, int fim) {\n\t   \t\t\n\t\tint pivot = v[ini];\n\t\tint i = ini;\n\t\t\n\t\tfor(int j = ini + 1; j <fim; j++){\n\t\t\tif(v[j] < pivot ){\n\t\t\t\ti++;\n\t\t\t\tswap(v, i, j);\n\t\t\t}\n\t\t}\n\t\tswap(v, ini, i);\n\t\treturn i;\n\t}\n\t\n\tprivate static void swap(int[] v, int i, int j){\n\t\tint aux = v[i];\n\t\tv[i] = v[j];\n\t\tv[j] = aux;\n\t\t\t\t\n\t}\n\t\n}\n",
+      "name": "DuplicateElements.java"
+    }
+  },
+  "kind": "assignment",
+  "name": null,
+  "checksum": "3109493ed8300442f269f1551ae0325c",
+  "iid": 5442182202785792,
+  "activity_revision": "1.0.0"
+}
