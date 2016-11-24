@@ -12,10 +12,22 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSorting<T> {
 
    @Override
    public void sort(T[] array, int leftIndex, int rightIndex) {
-      int index_menor;
+
+	   if(array.length>0){
+		  if(leftIndex > rightIndex){
+			  throw new RuntimeException();
+		  }
+	  }
+
+	  int index_menor;
       int n = rightIndex + 1;
 
       for (int i = leftIndex; i < n - 1; i++) {
+    	//Se o array contiver elementos nulos eles são mandados para o fim do array
+    	 if(array[i] == null){
+    		 mandaNull(array, i, rightIndex);
+    		 rightIndex--;
+    	 }
          index_menor = i;
          for (int j = i + 1; j < n; j++) {
             if ((array[index_menor].compareTo(array[j])) > 0) {
@@ -27,6 +39,14 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSorting<T> {
          }
       }
 
+   }
+   
+   public void mandaNull(T[] v, int ind, int rightIndex){
+	   
+	   for(int i = ind; i < rightIndex; i ++){
+		   Util.swap(v, ind, i);
+	   }
+	   
    }
 
 }

@@ -19,6 +19,7 @@ public class StudentSortingTest {
 	private Integer[] vetorVazio = {};
 	private Integer[] vetorValoresRepetidos;
 	private Integer[] vetorValoresIguais;
+	private Integer[] vetorAoContrario;
 
 	public AbstractSorting<Integer> implementation;
 
@@ -30,7 +31,7 @@ public class StudentSortingTest {
 				11, 18, 36 });
 		populaVetorRepetido(new Integer[] { 4, 9, 3, 4, 0, 5, 1, 4 });
 		populaVetorIgual(new Integer[] { 6, 6, 6, 6, 6, 6 });
-
+		populaVetorAoContrario(new Integer[] { 30, 29, 26, 22, 15, 7 , 9, 0,-2,-1 });
 		getImplementation();
 	}
 
@@ -62,6 +63,10 @@ public class StudentSortingTest {
 	public void populaVetorIgual(Integer[] arrayPadrao) {
 		this.vetorValoresIguais = Arrays
 				.copyOf(arrayPadrao, arrayPadrao.length);
+	}
+	
+	public void populaVetorAoContrario(Integer[] array){
+		this.vetorAoContrario = Arrays.copyOf(array, array.length);
 	}
 
 	// FIM DOS METODOS AUXILIARES DA INICIALIZAÇÃO
@@ -99,7 +104,11 @@ public class StudentSortingTest {
 	public void testSort05() {
 		genericTest(vetorValoresRepetidos);
 	}
-
+	
+	public void testSort06() {
+		genericTest(vetorAoContrario);
+	}
+	
 	// MÉTODOS QUE OS ALUNOS PODEM CRIAR
 	/**
 	 * O ALUNO PODE IMPLEMENTAR METODOS DE ORDENAÇÃO TESTANDO O SORT COM TRES
