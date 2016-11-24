@@ -12,8 +12,8 @@ public class SelectionSort<T extends Comparable<T>> implements Sorting<T> {
 		
 		for(int i = 0; i < n -1; i++){
 			index_menor = i; 
-			for(int j = 0; j < n;j++){
-				if((v[index_menor].compareTo(v[j])) < 0){
+			for(int j = i+1; j < n;j++){
+				if((v[index_menor].compareTo(v[j])) > 0){
 					index_menor = j;
 				}
 			}if(index_menor != i){
