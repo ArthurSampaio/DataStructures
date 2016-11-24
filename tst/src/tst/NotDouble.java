@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 class NotDouble {
 	
-	v
+	
 	public static int menorFrequencia(int[]v, int maior){
 		
 		int[] c = new int[maior+1];
