@@ -14,41 +14,46 @@ public class InsertionSort<T extends Comparable<T>> extends AbstractSorting<T> {
    @Override
    public void sort(T[] array, int leftIndex, int rightIndex) {
 
+	   
+	   
+	  if(leftIndex < 0){
+		  leftIndex = 0;
+		   
+	  }if(rightIndex > array.length -1){
+		  rightIndex = array.length -1;
+	  }
+	   
       if (array.length > 0) {
          if (leftIndex > rightIndex) {
             throw new RuntimeException();
          }
       }
+      
+      if(array != null){
+	      T atual;
+	      int j;
+	
+	      for (int i = leftIndex + 1; i <= rightIndex; i++) {
+	
+	         if (array[i] == null) {
+	        	 Util.mandaNullParaOFim(array, i, rightIndex);
+	            rightIndex--;
+	         }
+	
+	         atual = array[i];
+	         j = i;
+	
+	         while (j > 0 && (array[j - 1].compareTo(atual) > 0)) {
+	            array[j] = array[j - 1];
+	            j--;
+	         }
+	         array[j] = atual;
 
-      T atual;
-      int j;
-
-      for (int i = leftIndex + 1; i <= rightIndex; i++) {
-
-         if (array[i] == null) {
-            mandaNull(array, i, rightIndex);
-            rightIndex--;
-         }
-
-         atual = array[i];
-         j = i;
-
-         while (j > 0 && (array[j - 1].compareTo(atual) > 0)) {
-            array[j] = array[j - 1];
-            j--;
-         }
-         array[j] = atual;
-
+	      }
       }
 
    }
 
-   public void mandaNull(T[] v, int ind, int rightIndex) {
 
-      for (int i = ind; i < rightIndex; i++) {
-         Util.swap(v, ind, i);
-      }
-
-   }
 
 }

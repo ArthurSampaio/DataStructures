@@ -52,4 +52,12 @@ public class Util {
 		}
 		return result;
 	}
+	
+	public static void mandaNullParaOFim(Object[] v, int ind, int rightIndex){
+		   
+	   for(int i = ind; i < rightIndex; i ++){
+		   Util.swap(v, ind, i);
+	   }
+	   
+	}
 }
