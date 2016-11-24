@@ -1,5 +1,7 @@
 package util;
 
+
+
 /**
  * Class containing useful methods for arrays manipulation.
  */
@@ -53,11 +55,23 @@ public class Util {
 		return result;
 	}
 	
-	public static void mandaNullParaOFim(Object[] v, int ind, int rightIndex){
-		   
-	   for(int i = ind; i < rightIndex; i ++){
-		   Util.swap(v, ind, i);
+	public static int mandaNullParaOFim(Object[] v, int left, int rightIndex){
+		boolean find = false;
+	   for(int i = left; i <= rightIndex; i ++){
+		   for(int j = left; j<=rightIndex; j++){
+			   if(v[j]== null){
+				   find = true;
+				   if(j <rightIndex){
+					   swap(v, j, j+1);
+				   }
+			   }
+		   }if(find){
+			   rightIndex--;
+		   }
 	   }
-	   
+	   return rightIndex;
 	}
+	
+	
+	
 }

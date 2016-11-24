@@ -26,16 +26,18 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSorting<T> {
 		   rightIndex = array.length -1;
 	   } 
 
+	   
+	   
 	  if(array != null){ 
+		//Se houver elementos null, eles serão mandados para o fim do array e o rightIndex é decrescido
+
+		   rightIndex = Util.mandaNullParaOFim(array, leftIndex, rightIndex);
 		  int index_menor;
 	      int n = rightIndex + 1;
 	
 	      for (int i = leftIndex; i < n - 1; i++) {
 	    	//Se o array contiver elementos nulos eles são mandados para o fim do array
-	    	 if(array[i] == null){
-	    		 Util.mandaNullParaOFim(array, i, rightIndex);
-	    		 rightIndex--;
-	    	 }
+	    	 
 	         index_menor = i;
 	         for (int j = i + 1; j < n; j++) {
 	            if ((array[index_menor].compareTo(array[j])) > 0) {

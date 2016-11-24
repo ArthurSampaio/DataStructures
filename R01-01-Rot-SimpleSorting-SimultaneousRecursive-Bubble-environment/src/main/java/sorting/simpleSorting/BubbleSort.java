@@ -25,16 +25,16 @@ public class BubbleSort<T extends Comparable<T>> extends AbstractSorting<T> {
 		   }if(rightIndex > array.length -1){
 			   rightIndex = array.length -1;
 		   }  
+		   
+		   
 		
 		   if(array != null){
+			 //Se houver elementos null, eles serão mandados para o fim do array e o rightIndex é decrescido
+			   rightIndex = Util.mandaNullParaOFim(array, leftIndex, rightIndex);
 				for(int i = leftIndex; i<= rightIndex; i++){
 					
 		
-					 //Se o array contiver elementos nulos eles são mandados para o fim do array
-					if(array[i] == null){
-						Util.mandaNullParaOFim(array, i, rightIndex);
-						 rightIndex--;
-					 } 
+					 
 					for(int j = leftIndex; j<= rightIndex -1; j++){
 						if(array[j].compareTo(array[j+1]) > 0){
 							Util.swap(array, j+1, j);

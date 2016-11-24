@@ -23,23 +23,18 @@ public class SimultaneousRecursiveBubblesort<T extends Comparable<T>> extends Ab
 	   }
 	 
 	   
+	   
+	   
 	   if (rightIndex > leftIndex && rightIndex > 0) {
+		  
+		 //Se houver elementos null, eles serão mandados para o fim do array e o rightIndex é decrescido
+		  rightIndex = Util.mandaNullParaOFim(array, leftIndex, rightIndex);
 
-    	  if(array.length>0){
-    		  if(leftIndex > rightIndex){
-    			  throw new RuntimeException();
-    		  }
-    	  }
-
+    	  
     	  if(array != null){
 	         for (int i = leftIndex; i < rightIndex; i++) {
 	
-	        	 //Se o array contiver elementos nulos eles são mandados para o fim do array
-				 if(array[i] == null){
-					 Util.mandaNullParaOFim(array, i, rightIndex);
-					 //decresce o right
-					 rightIndex--;
-				 } 
+	        	 
 	        	 
 	            if (array[i].compareTo(array[i + 1]) > 0) {
 	               Util.swap(array, i, i + 1);

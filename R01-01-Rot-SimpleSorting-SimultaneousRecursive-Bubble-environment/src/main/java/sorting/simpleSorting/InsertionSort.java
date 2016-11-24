@@ -28,17 +28,19 @@ public class InsertionSort<T extends Comparable<T>> extends AbstractSorting<T> {
             throw new RuntimeException();
          }
       }
+
       
       if(array != null){
-	      T atual;
+   	   
+    	  //Se houver elementos null, eles serão mandados para o fim do array e o rightIndex é decrescido
+
+          rightIndex = Util.mandaNullParaOFim(array, leftIndex, rightIndex);
+    	  T atual;
 	      int j;
 	
 	      for (int i = leftIndex + 1; i <= rightIndex; i++) {
 	
-	         if (array[i] == null) {
-	        	 Util.mandaNullParaOFim(array, i, rightIndex);
-	            rightIndex--;
-	         }
+	        
 	
 	         atual = array[i];
 	         j = i;

@@ -43,7 +43,7 @@ public class StudentSortingTest {
 	private void getImplementation() {
 		// TODO O aluno deve instanciar sua implementação abaixo ao invés de
 		// null
-		this.implementation = new InsertionSort<>();
+		this.implementation = new SimultaneousRecursiveBubblesort();
 		//Assert.fail("Implementation not provided");
 	}
 
