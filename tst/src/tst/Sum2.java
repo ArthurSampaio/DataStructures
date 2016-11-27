@@ -2,7 +2,7 @@ package tst;
 
 import java.util.Scanner;
 
-public class Sum2 {
+class Sum2 {
 
 	public static void main(String[] args){
 		
