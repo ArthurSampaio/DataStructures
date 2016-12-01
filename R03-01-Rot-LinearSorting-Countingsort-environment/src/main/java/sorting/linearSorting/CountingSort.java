@@ -1,6 +1,7 @@
 package sorting.linearSorting;
 
 import sorting.AbstractSorting;
+import util.Util;
 
 /**
  * Classe que implementa a estratégia de Counting Sort vista em sala. Procure
@@ -13,8 +14,46 @@ public class CountingSort extends AbstractSorting<Integer> {
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
 		
+		if(array == null)
+			return;
 		
-		countingSort(array, leftIndex, rightIndex);
+		//se o array tiver tamanho 0 ou 1
+		if(array.length == 0 || array.length == 1){
+			return;
+		}
+		
+		//correção de indices
+		if(leftIndex < 0) {
+			leftIndex = 0;
+		}
+		//correção de indices
+		if(rightIndex > array.length - 1) {
+			rightIndex = array.length - 1;
+		}
+		
+		//se o apontador da esquerda for maior que o da direita, o vetor n é ordenado
+		if(leftIndex > rightIndex)
+			return;
+		
+		//se houver null's, manda-os para o fim e decrementa o rightIndex
+		rightIndex = sendNullToEnd(array, leftIndex, rightIndex);
+		
+		
+		
+		//para ordenar o vetor entre leftIndex e rightIndex, crio um aux[] e copio para dentro
+		//apenas os elementos que estão no intervalo e os ordeno pelo countingSort
+		Integer[] aux = new Integer[(rightIndex - leftIndex) + 1];
+		for(int i = leftIndex; i<=rightIndex; i++){
+			aux[i - leftIndex] = array[i];
+		}
+		
+		countingSort(aux, 0, aux.length -1);
+		
+		//depois adiciono os elementos ordenados pelo couting sort e substituo no array original
+		for(int i = leftIndex;i<=rightIndex;i++){
+			array[i] = aux[i - leftIndex];
+		}
+				
 		
 		
 	}
@@ -60,11 +99,24 @@ public class CountingSort extends AbstractSorting<Integer> {
 			array[c[b[i]]-1] = b[i];
 			c[b[i]]--;			
 		}
-
-		
-		
-		
+			
 	}
-	
+
+	private static int sendNullToEnd(Object[] v, int left, int rightIndex){
+		boolean find = false;
+	   for(int i = left; i <= rightIndex; i ++){
+		   for(int j = left; j<=rightIndex; j++){
+			   if(v[j]== null){
+				   find = true;
+				   if(j <rightIndex){
+					   Util.swap(v, j, j+1);
+				   }
+			   }
+		   }if(find){
+			   rightIndex--;
+		   }
+	   }
+	   return rightIndex;
+	}
 
 }
