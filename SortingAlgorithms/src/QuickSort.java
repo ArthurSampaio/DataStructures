@@ -3,8 +3,7 @@ import java.util.Arrays;
 public class QuickSort {
 
 	public static void quickSort(int[] v, int ini, int fim){
-		
-		
+				
 		if(ini<fim){
 			int ind_pivot = particao(v, ini, fim);
 			quickSort(v, ini, ind_pivot -1 );
