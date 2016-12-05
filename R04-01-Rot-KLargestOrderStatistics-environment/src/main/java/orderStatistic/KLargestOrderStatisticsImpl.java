@@ -43,8 +43,7 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 			}
 			
 		}
-		
-		
+				
 		return aux;
 		
 	}
@@ -65,7 +64,7 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 		if(array == null)
 			return null;
 		
-		if(k > array.length+1)
+		if((k > array.length+1) && (k<=0))
 			return null;
 				
 		//lógica do selectionsort
@@ -86,8 +85,6 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 	         }
 			 
 		}	
-					
-		
 		return array[k-1];
 		
 		
