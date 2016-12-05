@@ -32,15 +32,18 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 		if( k > array.length+1)
 			return null;
 		
-		T[] aux = Util.makeArray(array.length - k);
+		T[] aux =  (T[]) new Integer[array.length - k];
 		T estatistic = this.orderStatistics(array, k);
 		int cont = 0;
+		
 		for(int i = 0; i < array.length; i++){
-			if(estatistic.compareTo(array[i])>0){
+			if(array[i].compareTo(estatistic)>0){
 				aux[cont] = array[i];
 				cont++;
 			}
+			
 		}
+		
 		
 		return aux;
 		
