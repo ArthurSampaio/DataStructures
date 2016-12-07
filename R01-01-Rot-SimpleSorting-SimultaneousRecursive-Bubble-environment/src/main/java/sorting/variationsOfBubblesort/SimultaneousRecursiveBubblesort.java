@@ -22,7 +22,7 @@ public class SimultaneousRecursiveBubblesort<T extends Comparable<T>> extends Ab
 		   rightIndex = array.length -1;
 	   }
 	 
-	   
+	   rightIndex = Util.mandaNullParaOFim(array, leftIndex, rightIndex);
 	   
 	   
 	   if (rightIndex > leftIndex && rightIndex > 0) {

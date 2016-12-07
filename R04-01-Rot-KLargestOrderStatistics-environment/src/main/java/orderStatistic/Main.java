@@ -8,7 +8,7 @@ public class Main {
 		
 		Integer[] vetorTamPar;
 		Integer[] vetorTamImpar;
-		KLargestOrderStatisticsImpl<Integer> klarg;
+		KLargest<Integer> klarg;
 		
 		vetorTamPar = new Integer[] { 30, 28, 7, 29, 11, 26, 4, 22, 23,31 };
 		vetorTamImpar = new Integer[] { 30, 28, 7, 29, 11, 26, 4, 22, 23};
@@ -18,7 +18,6 @@ public class Main {
 		Integer[] out = klarg.getKLargest(vetorTamPar, 3);
 		System.out.println(Arrays.toString(vetorTamPar));
 
-		System.out.println(klarg.orderStatistics(vetorTamPar, 3));
 		Integer[] test = new Integer[]{30, 28, 29, 26, 23, 31};
 		System.out.println(Arrays.toString(out));
 		

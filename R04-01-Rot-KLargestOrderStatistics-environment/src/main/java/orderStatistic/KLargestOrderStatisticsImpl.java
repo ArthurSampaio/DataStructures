@@ -27,12 +27,20 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 	@Override
 	public T[] getKLargest(T[] array, int k) {
 		
+		if(k == array.length){
+			return (T[]) new Comparable[0];
+		}
+			
 		if(array == null)
 			return null;
 		if( k > array.length+1)
 			return null;
 		
-		T[] aux =  (T[]) new Integer[array.length - k];
+		
+		T[] aux =  (T[]) new Comparable[array.length - k];
+		//deixei integer ai em cima pq causava erro de cast e n sei com resolver. 
+		//mas era p ser:
+		//T[] aux = (T[]) new Comparable[array.length - k];
 		T estatistic = this.orderStatistics(array, k);
 		int cont = 0;
 		

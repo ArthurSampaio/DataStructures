@@ -1,4 +1,4 @@
-package tst;
+package src.tst;
 
 
 import java.util.Scanner;

@@ -1,16 +1,16 @@
-package testeKLargest;
+package test.orderStatistic;
 
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
-import java.util.Random;
- 
-import org.junit.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import orderStatistic.*;
+import orderStatistic.KLargest;
+import orderStatistic.KLargestOrderStatisticsImpl;
 
-public class TestKLargest {
+public class TestOrderStatistic {
 
 	private Integer[] vetorTamPar;
 	private Integer[] vetorTamImpar;
@@ -20,7 +20,7 @@ public class TestKLargest {
 	public void setUp(){
 		vetorTamPar = new Integer[] { 30, 28, 7, 29, 11, 26, 4, 22, 23,31 };
 		vetorTamImpar = new Integer[] { 30, 28, 7, 29, 11, 26, 4, 22, 23};
-		klarg = new KLargestOrderStatisticsImpl<Integer>();
+		klarg = new KLargestOrderStatisticsImpl<>();
 	}
 	
 	public void teste01(){
@@ -30,5 +30,6 @@ public class TestKLargest {
 		Arrays.equals(out, test);
 		
 	}
-	
+
+
 }

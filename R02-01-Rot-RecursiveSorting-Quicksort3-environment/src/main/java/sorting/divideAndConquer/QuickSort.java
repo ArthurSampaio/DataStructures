@@ -30,7 +30,6 @@ public class QuickSort<T extends Comparable<T>> extends AbstractSorting<T> {
 		
 		if(array.length != 1 && (array instanceof Comparable[]) )
 			quickSort(array, leftIndex, rightIndex);
-		
 	}
 	
 	private void quickSort(T[] array, int leftIndex, int rightIndex){
