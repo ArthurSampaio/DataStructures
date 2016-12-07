@@ -10,6 +10,7 @@ import sorting.AbstractSorting;
 import sorting.RecursiveBubbleSort;
 import sorting.RecursiveInsertion;
 import sorting.RecursiveSelection;
+import sorting.RecursiveSimultaneousSelectionSort;
 
  
  
@@ -44,7 +45,7 @@ public class StudentSortTest {
     private void getImplementation() {
         // TODO O aluno deve instanciar sua implementação abaixo ao invés de
         // null
-        this.implementation = null;
+        this.implementation = new RecursiveBubbleSort<Integer>();
     }
  
     public void populaVetorTamanhoPar(Integer[] arrayPadrao) {
