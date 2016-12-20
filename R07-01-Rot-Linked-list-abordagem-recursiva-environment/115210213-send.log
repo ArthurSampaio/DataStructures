@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<head/><log>
+<record>
+  <date>2016-12-19T14:14:59.617-0300</date>
+  <logger>ARTHUR SAMPAIO PERICO CORREIA</logger>
+  <level>FINE</level>
+  <message>File 115210213-ARTHUR SAMPAIO PERICO CORREIA.zip was received. It was sent by ARTHUR SAMPAIO PERICO CORREIA from IP 127.0.1.1</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-12-19T17:42:21.495-0300</date>
+  <logger>ARTHUR SAMPAIO PERICO CORREIA</logger>
+  <level>FINE</level>
+  <message>File 115210213-ARTHUR SAMPAIO PERICO CORREIA.zip was received. It was sent by ARTHUR SAMPAIO PERICO CORREIA from IP 127.0.1.1</message>
+</record>
+</log>
+<?xml version="1.0" encoding="US-ASCII" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-12-19T21:38:09.792-0300</date>
+  <logger>ARTHUR SAMPAIO PERICO CORREIA</logger>
+  <level>FINE</level>
+  <message>File 115210213-ARTHUR SAMPAIO PERICO CORREIA.zip was received. It was sent by ARTHUR SAMPAIO PERICO CORREIA from IP 127.0.1.1</message>
+</record>
