@@ -26,7 +26,7 @@ public class FifoTest {
 	public void setUp() {
 		this.randomer = new Random();
 		this.stack = new ArrayDeque<>();
-		this.myQueue = new CircularQueue<>(STACK_SIZE);
+		this.myQueue = new QueueImpl<>(STACK_SIZE);
 	}
 
 	@Test

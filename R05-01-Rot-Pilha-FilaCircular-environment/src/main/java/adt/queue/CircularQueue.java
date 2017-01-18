@@ -23,7 +23,6 @@ public class CircularQueue<T> implements Queue<T> {
 		if(isEmpty()){
 			this.head = 0;
 			this.tail = 0;
-			elements++;
 			array[tail] = element;
 			this.elements++;
 		}else{

@@ -8,7 +8,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		DoubleLinkedList<Integer> lista1= new DoubleLinkedListImpl<>();
+		DoubleLinkedListImpl<Integer> lista1= new DoubleLinkedListImpl<>();
 		System.out.println(Arrays.toString(lista1.toArray()));
 
 		lista1.insert(3);
@@ -35,6 +35,9 @@ public class Main {
 		System.out.println(Arrays.toString(lista1.toArray()));
 
 		lista1.removeFirst();
+		System.out.println(Arrays.toString(lista1.toArray()));
+		
+		lista1.reverse();
 		System.out.println(Arrays.toString(lista1.toArray()));
 
 

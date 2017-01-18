@@ -28,23 +28,47 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 
 	@Override
 	public void removeFirst() {
-		if(isEmpty()) return;
-		getHead().setPrevious(null);
-		getHead().setData(null);
-		setHead(getHead().getNext());
+		
+		if(!isEmpty()){
+			getHead().setPrevious(null);
+			getHead().setData(null);
+			setHead(getHead().getNext());
+			
+			if(this.getHead().getNext() == null){
+				getHead().setNext(new DoubleLinkedListNode<>(null, null, getHead()));
+				setLast(getHead());
+			}
+		}
 		
 	}
 
 	@Override
 	public void removeLast() {
-		if(isEmpty()) return;
+
+		if(!isEmpty()){
 	
-		DoubleLinkedListNode<T> preLast = last.getPrevious();
-		preLast.setData(null);
-		preLast.setNext(null);
-		last = preLast;
+			last.getPrevious().setData(null);
+			last.getPrevious().setNext(null);
+			setLast(this.getLast().getPrevious());
+		}
 		
 	}
+	
+	public void reverse() {
+		DoubleLinkedListNode<T> temp = new DoubleLinkedListNode<>();
+		DoubleLinkedListNode<T> current = this.getHead();
+		
+		while(!current.isNIL()){
+			temp = current.getPrevious();
+			current.setPrevious((DoubleLinkedListNode<T>) current.getNext());
+			current.setNext(temp);
+			current = current.getPrevious();
+		}
+		
+		if(!temp.isNIL()) setHead(temp.getPrevious());
+	}
+	
+	
 
 	public DoubleLinkedListNode<T> getLast() {
 		return last;

@@ -18,27 +18,6 @@ public class StackImpl<T> implements Stack<T> {
 		if(isEmpty()) return null;
 		else return array[top];
 	}
-	
-	public void reverseStack() throws StackOverflowException, StackUnderflowException{
-
-		if(this.top != -1){
-			T bottom = popBottom();
-			reverseStack();
-			this.push(bottom);
-		}
-	}
-	
-	private T popBottom() throws StackUnderflowException, StackOverflowException {
-		
-		T top = this.pop();
-		if(this.top ==-1) return top;
-		else{
-			T bottom = popBottom();
-			this.push(top);
-			return bottom;
-		}
-		
-	}
 
 	@Override
 	public boolean isEmpty() {
@@ -66,6 +45,27 @@ public class StackImpl<T> implements Stack<T> {
 		else{
 			return array[top--];
 		}
+	}
+	
+	public void reverseStack(int index) throws StackUnderflowException, StackOverflowException{
+
+		if(this.top != -1){
+			T bottom = popBottom();
+			reverseStack(index);
+			this.push(bottom);
+		}
+	}
+	
+	private T popBottom() throws StackUnderflowException, StackOverflowException {
+		
+		T top = this.pop();
+		if(this.top ==-1) return top;
+		else{
+			T bottom = popBottom();
+			this.push(top);
+			return bottom;
+		}
+		
 	}
 	
 	public String toString(){
