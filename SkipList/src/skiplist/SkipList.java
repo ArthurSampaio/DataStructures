@@ -83,8 +83,25 @@ public class SkipList <T extends Comparable> implements SkipListInterface<T>{
 
 	@Override
 	public void remove(int key) {
-		// TODO Auto-generated method stub
 		
+		SkipNode[] update = new SkipNode[this.maxLevel];
+		SkipNode aux = this.root; 
+		
+		for(int i = this.level -1 ; i > 0; i--){
+			while(aux.getNode(i).getKey() < key)
+				aux = aux.getNode(i);
+			update[i] = aux; 
+		}
+		aux = aux.getNode(0); 
+		
+		for(int i = 0; i < this.level; i++){
+			if(update[i].getNode(i) != aux)	break;
+			update[i].setForward(i, aux.getNode(i));
+		}	
+		
+		while(this.level > 1 && this.root.getNode(this.level).equals(NIL))
+			this.level--;
+
 	}
 
 	@Override
