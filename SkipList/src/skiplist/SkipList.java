@@ -32,13 +32,51 @@ public class SkipList <T extends Comparable> implements SkipListInterface<T>{
 	}
 
 	@Override
-	public void insert(int key, Comparable newValue) {
-		// TODO Auto-generated method stub
+	public void insert(int key, T newValue) {
+		
+		SkipNode [] update = new SkipNode[this.maxLevel];
+		SkipNode aux = this.root; 
+		
+		//search
+		for(int i = this.level-1; i > 0; i--){
+			while(aux.getNode(i).getKey() < key)
+				aux = aux.getNode(i);
+			//save the next nodes. 
+			update[i] = aux; 
+		}
+		
+		aux = aux.getNode(0);
+		
+		if(aux.getKey() == key)
+			aux.setData(newValue);
+		else{
+			int newLevel = this.generateRandomLevel();
+			
+			if(newLevel > this.level){
+				for(int i = this.level; i > newLevel; i--)
+					update[i] = this.root;
+				this.level = newLevel; 
+			}
+			
+			aux = makeNode(key, newValue, newLevel);
+			
+			//change the pointers
+			for(int i = 0; i < newLevel; i++){
+				aux.setForward(i, update[i].getNode(i));
+				update[i].setForward(i, aux);
+			}
+			
+		}
+		
 		
 	}
 
+	private SkipNode makeNode(int key, T newValue, int newLevel) {
+		return new SkipNode(key,newLevel, newValue);
+	}
+
 	@Override
-	public void insert(int key, Comparable newValue, int newHeight) {
+	public void insert(int key, T newValue, int newHeight) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -58,14 +96,22 @@ public class SkipList <T extends Comparable> implements SkipListInterface<T>{
 				aux = aux.getNode(i);
 			}
 		}
-		
 		aux = aux.getNode(0);
+		
 		if(aux.getKey() == key)
 			return aux.getData(); 
 		else		
 			return null;
 	}
 	
+	private int generateRandomLevel(){
+		
+		int v = 1; 
+		while(Math.random() < this.probabilty && v < this.maxLevel)
+			v++; 
+		return v; 
+		
+	}
 	
 
 	@Override
