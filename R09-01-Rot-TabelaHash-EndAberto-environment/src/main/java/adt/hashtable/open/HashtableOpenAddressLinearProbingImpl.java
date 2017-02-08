@@ -94,6 +94,7 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 		while(this.table[ind] != null && !this.table[ind].equals(this.deletedElement)){
 			
 			//checks if the element already be in this.table
+			//duplicated element
 			if(this.table[ind].equals(element)){
 				ind = NOT_FOUND; 
 				break;
