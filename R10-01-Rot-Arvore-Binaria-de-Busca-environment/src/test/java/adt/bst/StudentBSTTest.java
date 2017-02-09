@@ -94,6 +94,7 @@ public class StudentBSTTest {
 		fillTree(); // -40 -34 0 2 5 6 9 12 23 67 76 232
 
 		assertEquals(null, tree.predecessor(-40));
+		System.out.println(tree.sucessor(-40));
 		assertEquals(new Integer(-34), tree.sucessor(-40).getData());
 		System.out.println(tree.search(0));
 		assertEquals(new Integer(-40), tree.predecessor(-34).getData());

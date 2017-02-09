@@ -60,7 +60,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		insert(root, element, null);
 		
 	}
-
 	private void insert(BSTNode<T> node, T element, BSTNode<T> node2) {
 		
 		if (element != null) {
@@ -119,7 +118,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public BSTNode<T> sucessor(T element) {
-
+		
 		BTNode<T> result = null;
 		BTNode<T> auxNode = search(element);
 
@@ -138,6 +137,8 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		return (BSTNode<T>) result;
 	
 	}
+
+
 
 
 	@Override
@@ -166,8 +167,73 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public void remove(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		BSTNode<T> aux = search(element);
+		if(!aux.isEmpty()){
+			remove(aux);
+		}
+	}
+
+	private void remove(BSTNode<T> aux) {
+		
+		//is leaf (g0)
+		if(aux.isLeaf())
+			removeLeaf(aux);
+		
+		else if (aux.getLeft().isEmpty() || aux.getRight().isEmpty()){
+			removeOneDegree(aux);
+		}else{
+			removeTwoDegree(aux);
+			
+		}
+		
+	}
+
+	private void removeTwoDegree(BSTNode<T> aux) {
+		
+		BSTNode<T>sucessor = sucessor(aux.getData());
+		T elementoSucessor = sucessor.getData();
+		remove(sucessor);
+		aux.setData(elementoSucessor);
+		
+	}
+
+	private void removeOneDegree(BSTNode<T> aux) {
+		
+		if(aux.equals(root)){
+			if(!aux.getRight().isEmpty()){
+				root = getRight(aux); 
+			}else
+				root = getLeft(aux);
+			
+			root.setParent(buildBSTNode());
+		}else{
+			//se aux é filho a esquerda 
+			if(aux.equals(aux.getParent().getLeft())){
+				
+				if(aux.getRight().isEmpty()){
+					aux.getParent().setLeft(aux.getLeft());
+					aux.getRight().setParent(aux.getParent());
+				}else{
+					aux.getParent().setLeft(aux.getRight());
+					aux.getRight().setParent(aux.getParent());
+				}
+				
+			}else{
+				if(aux.getRight().isEmpty()){
+					aux.getParent().setRight(aux.getLeft());
+					aux.getLeft().setParent(aux.getParent());
+				}else{
+					aux.getParent().setRight(aux.getRight());
+					aux.getRight().setParent(aux.getParent());
+				}
+					
+			}
+		}
+		
+	}
+
+	private void removeLeaf(BSTNode<T> aux) {
+		aux.setData(null);
 	}
 
 	@Override
