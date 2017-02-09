@@ -2,6 +2,8 @@ package adt.bst;
 
 import static org.junit.Assert.*;
 
+import java.util.concurrent.SynchronousQueue;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -93,10 +95,9 @@ public class StudentBSTTest {
 
 		assertEquals(null, tree.predecessor(-40));
 		assertEquals(new Integer(-34), tree.sucessor(-40).getData());
-
+		System.out.println(tree.search(0));
 		assertEquals(new Integer(-40), tree.predecessor(-34).getData());
 		assertEquals(new Integer(0), tree.sucessor(-34).getData());
-
 		assertEquals(new Integer(-34), tree.predecessor(0).getData());
 		assertEquals(new Integer(2), tree.sucessor(0).getData());
 
@@ -119,8 +120,11 @@ public class StudentBSTTest {
 
 	@Test
 	public void testHeight() {
+		System.out.println(tree.order());
+
 		fillTree(); // -40 -34 0 2 5 6 9 12 23 67 76 232
 
+		
 		Integer[] preOrder = new Integer[] { 6, -34, -40, 5, 2, 0, 23, 9, 12,
 				76, 67, 232 };
 		assertArrayEquals(preOrder, tree.preOrder());

@@ -55,24 +55,25 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	@Override
 	public void insert(T element) {
 		
-		insert(root, element);
+		insert(root, element, null);
 		
 	}
 
-	private void insert(BSTNode<T> node, T element) {
+	private void insert(BSTNode<T> node, T element, BSTNode<T> parent) {
 		
 		if (element != null) {
 			if (node.isEmpty()) {
 				node.setData(element);
 				node.setLeft(buildBSTNode());
 				node.setRight(buildBSTNode());
+				node.setParent(parent);
 				node.getLeft().setParent(node);
 				node.getRight().setParent(node);
 			} else {
 				if (element.compareTo(node.getData()) > 0) {
-					insert(getRight(node), element);
+					insert(getRight(node), element, node);
 				} else if (element.compareTo(node.getData()) < 0) {
-					insert(getLeft(node), element);
+					insert(getLeft(node), element, node);
 				}
 			}
 		}
@@ -130,7 +131,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			return minimum(getRight(node));
 		else{
 			BSTNode<T> out = getParent(node);
-			if((!out.isEmpty() && node.equals(getRight(out)))){
+			if((!out.isEmpty() && node.equals(out.getRight()))){
 				return sucessor(getParent(out));
 			}else{
 				return out;
@@ -154,8 +155,8 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			return maximum(getLeft(node));
 		else{
 			BSTNode<T> out = getParent(node);
-			if((!out.isEmpty() && node.equals(getLeft(out)))){
-				return sucessor(getParent(out));
+			if((!out.isEmpty() && node.equals(out.getLeft()))){
+				return predecessor(getParent(out));
 			}else{
 				return out;
 			}
@@ -205,15 +206,38 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		return array;
 	}
 
-	private void order(T[] array, BSTNode<T> root2, int i) {
+	private void order(T[] array, BSTNode<T> node, int i) {
 		
+		if(!node.isEmpty()){
+			
+			order(array, getLeft(node), i);
+			array[i++] = node.getData();
+			order(array, getRight(node), i);
+			
+		}
 		
 	}
 
 	@Override
 	public T[] postOrder() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		
+		T[] array = (T[]) new Comparable[size()];
+		
+		if(!root.isEmpty()){
+			postOrder(array, root, 0);	
+		}
+		return array;
+	}
+
+	private void postOrder(T[] array, BSTNode<T> node, int i) {
+	
+		if(!node.isEmpty()){
+			
+			postOrder(array, getLeft(node), i);
+			postOrder(array, getRight(node), i);
+			array[i++] = node.getData();
+		}
+		
 	}
 
 	/**
