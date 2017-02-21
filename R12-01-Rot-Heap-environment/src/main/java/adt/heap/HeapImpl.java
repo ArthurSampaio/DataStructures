@@ -95,7 +95,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 			}
 		}
 	}
-
+	
 	private int maxIndex(int left, int right) {
 		if(comparator.compare(heap[left], heap[right]) > 0)
 			return left; 
