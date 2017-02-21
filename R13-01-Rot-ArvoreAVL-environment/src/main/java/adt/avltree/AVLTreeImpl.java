@@ -26,7 +26,7 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements
 	public void remove(T element){
 		BSTNode<T> node = search(element);
 		super.remove(node);
-		rebalanceUp(node);
+		rebalanceUp(getParent(node));
 	}
 	
 	// AUXILIARY
