@@ -90,6 +90,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 			
 			max = maxIndex(max, position);
 			if(max != position){
+				
 				Util.swap(heap, position, max);
 				heapify(max);
 			}
