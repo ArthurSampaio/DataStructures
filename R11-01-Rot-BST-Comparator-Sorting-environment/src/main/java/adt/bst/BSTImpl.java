@@ -118,53 +118,56 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
  
 	@Override
 	public BSTNode<T> sucessor(T element) {
- 
-		BTNode<T> result = null;
-		BTNode<T> auxNode = search(element);
- 
-		if (auxNode.isEmpty()) {
+		if (root.getData() == null) {
 			return null;
 		}
-		if (!auxNode.getRight().isEmpty()) {
-			result = minimum((BSTNode<T>) auxNode.getRight());
+		BSTNode<T> node = search(element);
+		if (node.getRight().getData() != null) {
+			return minimum(getRight(node));
 		} else {
-			result = auxNode.getParent();
-			while (result != null && auxNode.equals(result.getRight())) {
-				auxNode = result;
-				result = result.getParent();
+			
+			return sucessor(node);
+		}
+	}
+
+	private BSTNode<T> sucessor(BTNode<T> atual) {
+		if (atual.getParent() == null) {
+			return null;
+		} else {
+			if (atual.equals(atual.getParent().getLeft())) {
+				return (BSTNode<T>) atual.getParent();
+			} else {
+				return sucessor(atual.getParent());
 			}
 		}
-		return (BSTNode<T>) result;
- 
 	}
- 
- 
- 
- 
+
 	@Override
 	public BSTNode<T> predecessor(T element) {
-		BTNode<T> result = null;
-		BTNode<T> auxNode = search(element);
- 
-		if (auxNode.isEmpty()) {
-			return null;
-		}
-		if (!auxNode.getLeft().isEmpty()) {
-			result = maximum((BSTNode<T>) auxNode.getLeft());
-		} else {
-			result = auxNode.getParent();
-			while (result != null && auxNode.equals(result.getLeft())) {
-				auxNode = result;
-				result = result.getParent();
-			}
-		}
- 
-		return (BSTNode<T>) result;
- 
+		
+		if(this.getRoot().isEmpty()) return null; 
+		BSTNode<T> aux = this.search(element);
+		
+		if(aux.getLeft().getData() != null)
+			return this.maximum(getLeft(aux));
+		else
+			return predecessor(aux);
+
 	}
  
  
  
+	private BSTNode<T> predecessor(BSTNode<T> aux) {
+		if(aux.getParent() == null) return null; 
+		
+		else{
+			if(aux.getParent().getRight().equals(aux))
+				return getParent(aux);
+			else
+				return predecessor(getParent(aux));
+		}
+	}
+
 	@Override
 	public void remove(T element) {
 		BSTNode<T> aux = search(element);

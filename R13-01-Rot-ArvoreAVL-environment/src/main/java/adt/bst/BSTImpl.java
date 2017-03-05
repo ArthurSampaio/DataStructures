@@ -3,6 +3,7 @@ package adt.bst;
 import java.util.ArrayList;
  
 import adt.bt.BTNode;
+import adt.bt.Util;
  
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
  
@@ -243,7 +244,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	public T[] preOrder() {
  
 		ArrayList<T> array = new ArrayList<>();
-		T[] out = (T[]) new Comparable[size()];
+		T[] out = Util.makeArrayOfComparable(size());
 		
 		if(!root.isEmpty()){
 			preOrder(array, root);	
@@ -267,7 +268,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	@Override
 	public T[] order() {
  
-		T[] array = (T[]) new Comparable[size()];
+		T[] array = Util.makeArrayOfComparable(size());
 		ArrayList<T> aux = new ArrayList<>();
 		if(!root.isEmpty()){
 			order(aux, root);	
@@ -289,7 +290,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	@Override
 	public T[] postOrder() {
  
-		T[] array = (T[]) new Comparable[size()];
+		T[] array = Util.makeArrayOfComparable(size());
 		ArrayList<T> out = new ArrayList<>();
  
 		if(!root.isEmpty()){

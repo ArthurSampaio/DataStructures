@@ -103,9 +103,9 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 			return right;
 	}
 
-	
 	@Override
 	public void insert(T element) {
+
 		// ESSE CODIGO E PARA A HEAP CRESCER SE FOR PRECISO. NAO MODIFIQUE
 		if (index == heap.length - 1) {
 			heap = Arrays.copyOf(heap, heap.length + INCREASING_FACTOR);
@@ -146,7 +146,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 			//troca a raiz pelo ultimo elemento inserido
 			Util.swap(heap, 0, index);
 			index--;
-			heapify(parent(0));
+			heapify((0));
 		}
 		
 	}
@@ -178,12 +178,8 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		for (int index = 0; index < newArray.length; index++) {
 			newArray[index] = this.extractRootElement();
 		}
-
-		
 		this.heap = (T[]) (new Comparable[INITIAL_SIZE]);
 
-
-		
 		this.comparator = actual;
 
 		return newArray;

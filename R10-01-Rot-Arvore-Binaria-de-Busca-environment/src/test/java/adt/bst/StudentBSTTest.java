@@ -2,11 +2,15 @@ package adt.bst;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import adt.bst.BSTImpl;
 import adt.bt.BTNode;
+import junit.framework.Assert;
 
 public class StudentBSTTest {
 
@@ -121,6 +125,39 @@ public class StudentBSTTest {
 
 		tree.remove(2);
 		assertEquals(3, tree.height());
+	}
+	
+	
+	@Test
+	public void testEquals() {
+		
+		BSTImpl<Integer> tree1 = new BSTImpl<>();
+		BSTImpl<Integer> tree2 = new BSTImpl<>();
+		
+		Integer[] array = { 6, 23, -34, 5, 9, 2, 0, 76, 12, 67, 232, -40 };
+		for (int i : array) {
+			tree1.insert(i);
+			tree2.insert(i);
+		}
+		
+		assertTrue(tree1.equals(tree2));
+
+	}
+	
+	@Test
+	public void testIsSimilar() {
+		
+		BSTImpl<Integer> tree1 = new BSTImpl<>();
+		BSTImpl<Integer> tree2 = new BSTImpl<>();
+		
+		Integer[] array = { 6, 23, -34, 5, 9, 2, 0, 76, 12, 67, 232, -40 };
+		for (int i : array) {
+			tree1.insert(i);
+			tree2.insert(i+1);
+		}
+		
+		assertTrue(tree1.isSimilar(tree2));
+
 	}
 
 	@Test
@@ -275,8 +312,10 @@ public class StudentBSTTest {
 		assertFalse(bst.search(71).isEmpty());
 		bst.remove(71);
 		assertTrue(bst.search(71).isEmpty());
+
 		bst.remove(73);
 		assertNull(bst.predecessor(73));
+
 		assertNull(bst.sucessor(71));
 		assertEquals(bst.size(), 16);
 		assertEquals(bst.height(), 7);
@@ -372,4 +411,110 @@ public class StudentBSTTest {
 		assertNull(bst.predecessor(null));
 		assertNull(bst.sucessor(null));
 	}
+	
+	@Test
+	public void testEqualsAndisSimilar(){
+		
+		BSTImpl<Integer> tree1 = new BSTImpl<>(); 
+		BSTImpl<Integer> tree2 = new BSTImpl<>();
+		
+		Integer[] array = { 6, 23, -34, 5, 9, 2, 0, 76, 12, 67, 232, -40 };
+		for (int i : array) {
+			tree1.insert(i);
+			tree.insert(i);
+			tree2.insert(i+1);
+			
+		}
+		
+		assertTrue(tree.equals(tree1));
+		assertFalse(tree.equals(tree2));
+		
+		assertTrue(tree.isSimilar(tree2));
+
+	}
+	
+	@Test
+	public void orderStatistic(){
+		
+		BSTImpl<Integer> tree2 = new BSTImpl<>();
+		
+		Integer[] array = { 6, 23, -34, 5, 9, 2, 0, 76, 12, 67, 232, -40 };
+		for (int i : array) {
+			tree2.insert(i);
+			
+		}
+		
+		Arrays.sort(array);
+		assertEquals(tree2.orderStatistic(1), array[0]);
+		assertEquals(tree2.orderStatistic(2), array[1]);
+		assertEquals(tree2.orderStatistic(3), array[2]);
+		assertEquals(tree2.orderStatistic(5), array[4]);
+		
+	}
+	
+	@Test
+	public void containsTest(){
+		BSTImpl<Integer> tree2 = new BSTImpl<>();
+		BSTImpl<Integer> tree3 = new BSTImpl<>();
+		BSTImpl<Integer> tree4 = new BSTImpl<>();
+
+		fillTree();
+		Integer[] array = { 6, 23, -34, 5, 9, 2, 0 };
+		for (int i : array) {
+			tree2.insert(i);
+			
+		}
+		assertTrue(tree.contains(tree2));
+		
+		Integer[] array1 = { 6,23,9,12};
+		for (int i : array1) {
+			tree3.insert(i);
+		}
+		assertTrue(tree.contains(tree3));
+		Integer[] array2 = {76,67,232};
+		for (int i : array2) {
+			tree4.insert(i);
+		}
+		assertTrue(tree.contains(tree4));
+
+	}
+	
+	@Test
+	public void isDecendentTest(){
+		
+		fillTree();
+		
+		assertTrue(tree.isDecendent(0, 5));
+		assertFalse(tree.isDecendent(23, 5));
+		assertTrue(tree.isDecendent(232, 23));
+		assertFalse(tree.isDecendent(67, -34));
+		
+	}
+	
+	@Test 
+	public void commonAncestor(){
+		
+		fillTree();
+		
+		assertEquals(23, tree.commonAcestor(12, 232), 0.01);
+		assertEquals(76, tree.commonAcestor(67, 232), 0);
+		assertEquals(-34, tree.commonAcestor(-40, 0), 0);
+		
+
+	}
+	
+	@Test
+	public void distanceTest(){
+		
+		fillTree();
+		System.out.println(tree.distance(5, 0));
+		System.out.println(tree.distance(6, 0));
+
+		
+		
+	}
+	
+	
+	
+	
 }
