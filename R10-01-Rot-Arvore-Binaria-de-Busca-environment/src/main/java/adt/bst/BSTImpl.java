@@ -339,7 +339,10 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	 */
 	public boolean equals(BST<T> tree2){
 		
-		return equals(getRoot(), tree2.getRoot());
+		if(tree2 != null)
+			return equals(getRoot(), tree2.getRoot());
+		else
+			return false; 
 		
 	}
 
@@ -357,7 +360,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		return (leftTree && sameElement && rightTree );
 		
 	}
-	
 	
 	/**
 	 * Diz se uma BST tree1 eh similar a outra BST tree2. Duas BSTs sao similares 

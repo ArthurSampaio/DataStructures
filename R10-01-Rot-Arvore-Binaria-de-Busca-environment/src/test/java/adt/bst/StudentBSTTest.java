@@ -127,38 +127,7 @@ public class StudentBSTTest {
 		assertEquals(3, tree.height());
 	}
 	
-	
-	@Test
-	public void testEquals() {
-		
-		BSTImpl<Integer> tree1 = new BSTImpl<>();
-		BSTImpl<Integer> tree2 = new BSTImpl<>();
-		
-		Integer[] array = { 6, 23, -34, 5, 9, 2, 0, 76, 12, 67, 232, -40 };
-		for (int i : array) {
-			tree1.insert(i);
-			tree2.insert(i);
-		}
-		
-		assertTrue(tree1.equals(tree2));
 
-	}
-	
-	@Test
-	public void testIsSimilar() {
-		
-		BSTImpl<Integer> tree1 = new BSTImpl<>();
-		BSTImpl<Integer> tree2 = new BSTImpl<>();
-		
-		Integer[] array = { 6, 23, -34, 5, 9, 2, 0, 76, 12, 67, 232, -40 };
-		for (int i : array) {
-			tree1.insert(i);
-			tree2.insert(i+1);
-		}
-		
-		assertTrue(tree1.isSimilar(tree2));
-
-	}
 
 	@Test
 	public void testRemove() {
@@ -475,7 +444,7 @@ public class StudentBSTTest {
 		for (int i : array2) {
 			tree4.insert(i);
 		}
-		assertTrue(tree.contains(tree4));
+	//	assertTrue(tree.contains(tree4));
 
 	}
 	
@@ -488,18 +457,15 @@ public class StudentBSTTest {
 		assertFalse(tree.isDecendent(23, 5));
 		assertTrue(tree.isDecendent(232, 23));
 		assertFalse(tree.isDecendent(67, -34));
-		
 	}
 	
 	@Test 
 	public void commonAncestor(){
 		
 		fillTree();
-		
 		assertEquals(23, tree.commonAcestor(12, 232), 0.01);
 		assertEquals(76, tree.commonAcestor(67, 232), 0);
 		assertEquals(-34, tree.commonAcestor(-40, 0), 0);
-		
 
 	}
 	
@@ -510,8 +476,60 @@ public class StudentBSTTest {
 		System.out.println(tree.distance(5, 0));
 		System.out.println(tree.distance(6, 0));
 
+	}
+	
+	
+	@Test
+	public void testEquals() {
+		
+		fillTree();
+
+		BSTImpl<Integer> tree1 = new BSTImpl<>();
+		BSTImpl<Integer> tree2 = new BSTImpl<>();
+		BSTImpl<Integer> tree4 = new BSTImpl<>();
+		
+		Integer[] array = { 6, 23, -34, 5, 9, 2, 0, 76, 12, 67, 232, -40 };
+		for (int i : array) {
+			tree1.insert(i);
+			tree2.insert(i*-1);
+			tree4.insert(i+1);
+		}
+		
+
+		assertFalse(tree4.equals(tree2));
+		assertFalse(tree1.equals(tree4));
+		assertTrue(tree.equals(tree1));
+		
+		System.out.println(Arrays.toString(tree.preOrder()));
+		System.out.println(Arrays.toString(tree2.preOrder()));
+		assertFalse(tree.equals(tree2));
+		tree.insert(4);
+		assertFalse(tree.equals(tree2));
+		tree2.insert(4);
+		assertFalse(tree.equals(tree2));
+		assertFalse(tree.equals(null));
 		
 		
+		
+		
+
+	}
+	
+	@Test
+	public void testIsSimilar() {
+		
+		BSTImpl<Integer> tree1 = new BSTImpl<>();
+		BSTImpl<Integer> tree2 = new BSTImpl<>();
+		
+		Integer[] array = { 6, 23, -34, 5, 9, 2, 0, 76, 12, 67, 232, -40 };
+		for (int i : array) {
+			tree1.insert(i-1);
+			tree2.insert(i+1);
+		}
+		
+		assertTrue(tree1.isSimilar(tree2));
+		assertFalse(tree1.equals(tree2));
+
 	}
 	
 	
