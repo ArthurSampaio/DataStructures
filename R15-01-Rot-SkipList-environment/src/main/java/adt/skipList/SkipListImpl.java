@@ -6,9 +6,6 @@ public class SkipListImpl<T> implements SkipList<T> {
 	protected SkipListNode<T> NIL;
 
 	protected int maxHeight;
-	protected boolean USE_MAX_HEIGHT_AS_HEIGHT;
-
-	protected double PROBABILITY = 0.5;
 
 	public SkipListImpl(int maxHeight) {
 		this.maxHeight = maxHeight;
@@ -34,26 +31,26 @@ public class SkipListImpl<T> implements SkipList<T> {
 	public void insert(int key, T newValue, int height) {
 		if(newValue != null) {
 			SkipListNode<T>[] update = new SkipListNode[height];
-			SkipListNode<T> auxNode = root;
+			SkipListNode<T> node = this.getRoot();
 
 			for(int i = height-1; i >= 0; i--) {
-				while(auxNode.getForward(i) != null && auxNode.getForward(i).getKey() < key) {
-					auxNode = auxNode.getForward(i);
+				while(node.getForward(i) != null && node.getForward(i).getKey() < key) {
+					node = node.getForward(i);
 				}
-				update[i] = auxNode; // 
+				update[i] = node; // 
 			}
 
-			auxNode = auxNode.getForward(0);
+			node = node.getForward(0);
 
-			if(auxNode.getKey() == key) {
-				auxNode.setValue(newValue);
+			if(node.getKey() == key) {
+				node.setValue(newValue);
 			} else {
 
 				ajustRoot(height, update);
 
-				auxNode = new SkipListNode<T>(key,height,newValue);
+				node = new SkipListNode<T>(key,height,newValue);
 
-				changeForwards(height, update, auxNode);
+				changeForwards(height, update, node);
 			}
 		}
 	}
@@ -62,29 +59,28 @@ public class SkipListImpl<T> implements SkipList<T> {
 	public void remove(int key) {
 
 		SkipListNode<T>[] update = new SkipListNode[this.maxHeight];
-		SkipListNode<T> auxNode = root;
+		SkipListNode<T> node = this.getRoot();
 
 		//pesquisa local, igual search
 		for(int i = this.maxHeight-1; i >= 0; i--) {
-			while(auxNode.getForward(i) != null && auxNode.getForward(i).getKey() < key) {
-				auxNode = auxNode.getForward(i);
+			while(node.getForward(i) != null && node.getForward(i).getKey() < key) {
+				node = node.getForward(i);
 			}
-			update[i] = auxNode; // atualiza onde passou
+			update[i] = node; // atualiza onde passou
 		}
 		
-		auxNode = auxNode.getForward(0);
+		node = node.getForward(0);
 		
-		if(auxNode.getKey() == key) {
+		if(node.getKey() == key) {
 			int i = 0;
-			while(update[i].getForward()[i].equals(auxNode)){
-				update[i].getForward()[i] = auxNode.getForward()[i];
+			while(update[i].getForward()[i].equals(node)){
+				update[i].getForward()[i] = node.getForward()[i];
 				i++;
 				if(i >=this.maxHeight) break;
 			}
 			while(this.maxHeight-1 > 0 && root.getForward()[this.maxHeight-1] == NIL) {
-				if(!USE_MAX_HEIGHT_AS_HEIGHT){
 					root.getForward()[this.maxHeight-1] =  null; 
-				}
+				
 				this.maxHeight--;
 			}
 		}
@@ -101,13 +97,13 @@ public class SkipListImpl<T> implements SkipList<T> {
 
 	@Override
 	public SkipListNode<T> search(int key) {
-		SkipListNode<T> auxNode = this.root;
+		SkipListNode<T> node = this.getRoot();
 		for(int i = maxHeight-1; i >= 0; i--){
-			while(auxNode.getForward(i) != null && auxNode.getForward(i).getKey() < key) {
-				auxNode = auxNode.getForward(i);
+			while(node.getForward(i) != null && node.getForward(i).getKey() < key) {
+				node = node.getForward(i);
 			}
 		}
-		SkipListNode<T> result = auxNode.getForward(0);
+		SkipListNode<T> result = node.getForward(0);
 		if(result.getKey() != key) {
 			result = null;
 		}
@@ -117,7 +113,7 @@ public class SkipListImpl<T> implements SkipList<T> {
 	@Override
 	public int size() {
 		int count = 0;
-		SkipListNode<T> auxNode = this.root.getForward(0);
+		SkipListNode<T> auxNode = getRoot().getForward(0);
 		while(auxNode != NIL) {
 			count++;
 			auxNode = auxNode.getForward(0);
@@ -127,28 +123,26 @@ public class SkipListImpl<T> implements SkipList<T> {
 
 	@Override
 	public SkipListNode<T>[] toArray() {
-		if(USE_MAX_HEIGHT_AS_HEIGHT) {
-			connectRootToNil();
-		}
+		
 		int size = size() +2;
 		SkipListNode<T>[] result = new SkipListNode[size];
-		SkipListNode<T> auxNode = this.root;
+		SkipListNode<T> node = getRoot();
 		int index = 0;
 		while(index < size) { 
-			result[index] = auxNode;
+			result[index] = node;
 			index++;
-			auxNode = auxNode.getForward(0);
+			node = node.getForward(0);
 		}
 		return result;
 	}
 
-	private void changeForwards(int height, SkipListNode<T>[] update, SkipListNode<T> newNode) {
+	private void changeForwards(int height, SkipListNode<T>[] update, SkipListNode<T> node) {
 		for(int i = 0; i < height; i++) {
 			if(update[i].getForward(i) == null) {
-				newNode.getForward()[i] = NIL; // para nao apontar para null, que é o forward de nil e tambem nao apontar o forward de nill pra node
+				node.getForward()[i] = NIL; 
 			} else {
-				newNode.forward[i] = update[i].forward[i];
-				update[i].forward[i] = newNode;
+				node.forward[i] = update[i].forward[i];
+				update[i].forward[i] = node;
 			}
 		}
 	}
@@ -156,10 +150,14 @@ public class SkipListImpl<T> implements SkipList<T> {
 	private void ajustRoot(int height, SkipListNode<T>[] updateArray) {
 		if(height > this.maxHeight) {
 			for(int i = this.maxHeight; i < height; i++) {
-				root.getForward()[i] = NIL;
+				getRoot().getForward()[i] = NIL;
 			}
 			this.maxHeight = height;
 		}
+	}
+	
+	private SkipListNode<T> getRoot(){
+		return this.root;
 	}
 
 }
