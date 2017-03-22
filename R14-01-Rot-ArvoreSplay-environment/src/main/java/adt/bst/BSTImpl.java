@@ -191,19 +191,37 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
    }
 
-   protected void remove(BSTNode node) {
-      if (!node.isEmpty()) {
-         if (node.isLeaf())
-            removeLeaf(node);
-         else if (node.getLeft().isEmpty() || node.getRight().isEmpty())
-            removeOneDegree(node);
-         else
-            removeTwoDegree(node);
-      }
-   }
+
+   protected BSTNode<T> remove(BSTNode<T> node) {
+		BSTNode<T> removed = node;
+		if (!node.isEmpty()) {
+			if (node.getLeft().isEmpty() || node.getRight().isEmpty()) {
+				//one leaf
+				BSTNode<T> newThis = getLeft(node);
+				if (newThis.isEmpty())
+					newThis = getRight(node);
+				
+				node.setData(newThis.getData());
+				node.setLeft(newThis.getLeft());
+				node.setRight(newThis.getRight());
+				if (getLeft(node) != null) {
+					node.getLeft().setParent(node);
+				}
+				if (getRight(node) != null) {
+					node.getRight().setParent(node);
+				}
+				
+			//2 leafs
+			} else {
+				BSTNode<T> newThis = sucessor(node.getData());
+				node.setData(newThis.getData());
+				removed = remove(newThis);
+			}
+		}
+		return removed;
+	}
 
    private void removeTwoDegree(BSTNode<T> node) {
-      // TODO Auto-generated method stub
       BSTNode<T> sucessor = sucessor(node.getData());
       T eleSucessor = sucessor.getData();
       removeOneDegree(sucessor);
@@ -345,5 +363,209 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
       return (BSTNode<T>) new BSTNode.Builder<T>().build();
    }
 
+
+	//NEED FOR SPEED 
+	
+	
+	/**
+	 * Diz se uma BST tree1 eh igual a outra BST tree2. As duas BSTs devem ter 
+	 * exatamente os mesmos nós e os mesmos formatos. Este metodo DEVE ser implementado
+	 * usando recursão. Voce não pode colocar elementos em arrays e depois comparar os arrays. 
+	 */
+	public boolean equals(BST<T> tree2){
+		
+		if(tree2 != null)
+			return equals(getRoot(), tree2.getRoot());
+		else
+			return false; 
+		
+	}
+
+	private boolean equals(BTNode<T> root, BTNode<T> root2) {
+		
+		if(root == null && root2 == null)
+			return true; 
+		else if(root == null || root2 == null)
+			return false; 
+			
+		boolean leftTree = equals(root.getLeft(), root2.getLeft());
+		boolean sameElement = root.equals(root2);
+		boolean rightTree = equals(root.getRight(), root2.getRight());
+		
+		return (leftTree && sameElement && rightTree );
+		
+	}
+	
+	/**
+	 * Diz se uma BST tree1 eh similar a outra BST tree2. Duas BSTs sao similares 
+	 * se elas possuem o mesmo formato (topologia). O conteudo de cada no é irrelevante.
+	 * Este metodo DEVE ser implementado usando recursao. 
+	 * Voce não pode colocar elementos em arrays e depois comparar os arrays.
+	 */
+	public boolean isSimilar(BST<T> tree2){
+		
+		return isSimilar(getRoot(), tree2.getRoot());
+		
+	}
+
+	private boolean isSimilar(BTNode<T> root, BTNode<T> root2) {
+		
+		if(root == null && root2 == null)
+			return true; 
+		else if(root == null || root2 == null)
+			return false; 
+		
+		boolean right = isSimilar(root.getRight(), root2.getRight());
+		boolean left = isSimilar(root.getLeft(), root2.getLeft());
+		
+		return right && left;
+		
+		
+	}
+	
+	/**
+	 * A K-esima estatistica de ordem de um BST eh o k-esimo menor elemento que esta 
+	 * na BST. Este metodo usa a BST para calcular a k-esima estatistica de ordem informada 
+	 * no parametro k (variando de 1 ate N). Por exemplo, k = 1 pede para calcular a 1a estatistica de ordem, que eh o 
+	 * elemento minimo da BST. k = n peda para calcular a ultima estatistica de ordem que eh
+	 * o elemento maximo da BST e assim por diante. Considere o seguinte para implementar
+	 * o metodo:
+	 *  - Uso OBRIGATORIO de recursao 
+	 *  - NÃO pode produzir array e depois selecionar elemento especifico do array
+	 *  - retornar null e a k-esima estatistica de ordem nao esta presente na BST.
+	 * @param k
+	 * @return
+	 */
+	public T orderStatistic(int k){
+		
+		if(k <= 0 || k > this.size()) return null;
+		
+		BSTNode<T> min = minimum(root);
+		if(min.isEmpty()) return null;
+				
+		for(int i = 1; i < k; i++){
+			if(min.isEmpty())
+				return null;
+			min = sucessor(min.getData());
+		}
+		
+		return min.getData();
+		
+		
+	}
+	
+	/**
+	 * It says if a BST tree1 contains another BST subtree. This method must 
+	 * be implemented using recursion.  
+	 */
+	public boolean contains(BST<T> subtree){
+		if(subtree != null){
+			BSTNode<T> raiz = search(subtree.getRoot().getData());
+			
+			if(raiz != null){
+				return contains(raiz, getRoot());
+			}
+		}
+		return false;
+	}
+
+	private boolean contains(BSTNode<T> raiz, BSTNode<T> root2) {
+
+		if(root2 == null)
+			return true;
+		if(raiz == null)
+			return false;
+		
+		if(equals(raiz, root2)) return true;
+		
+		return contains(getLeft(raiz), root2) 
+				|| contains(getRight(raiz), root2);
+		
+		
+			
+	}
+	
+	/**
+	 * It returns the comon ancestor between two nodes of a BST. A common ancestor is the first common 
+	 * node above node1 and node2. 
+	 */
+	public T commonAcestor(T e1, T e2){
+
+		return commonAcestor (root, e1, e2);
+	}
+
+	private T commonAcestor(BSTNode<T> node, T e1, T e2) {
+		if(node == null)
+			return null;
+		
+		//se e1 e e2 é menor que a raiz, entao o ancestral está a esquerda
+		if(node.getData().compareTo(e1) > 0 && node.getData().compareTo(e2) > 0)
+			return commonAcestor(getLeft(node), e1, e2);
+		if(node.getData().compareTo(e1) < 0 && node.getData().compareTo(e2) < 0)
+			return commonAcestor(getRight(node), e1, e2);
+		
+		return node.getData();
+
+	}
+
+	/**
+	 * Diz se um nó d é ou não descendete de um nó p.
+	 * @param d
+	 * @param p
+	 * @return
+	 */
+	public boolean isDecendent(T d, T p){
+		
+		BSTNode<T> nodeD = search(d);
+		
+		if(nodeD==null) return false;
+		
+		while(!nodeD.getData().equals(p)){
+			nodeD = getParent(nodeD);
+			if(nodeD == null)
+				return false;
+		}
+		
+		return true;
+	}
+	
+	public T[] walkLevels(BSTNode<T> no) {
+	    if (no == null) throw new IllegalArgumentException("Tree node cannot be null!");
+	    
+	    ArrayList<T> out = new ArrayList<>();
+	    Deque<BSTNode<T>> fila = new ArrayDeque<>();
+	    fila.add(no);
+	    while (!fila.isEmpty()) {
+	    	BSTNode<T> atual = fila.removeFirst();
+	    	out.add(atual.getData());
+	        System.out.printf("%s ", atual.getData());
+	        if (!atual.getLeft().isEmpty()) fila.add((BSTNode<T>) atual.getLeft());
+	        if (!atual.getRight().isEmpty()) fila.add((BSTNode<T>) atual.getRight());
+	    }
+	    T[] array = (T[]) new Comparable[size()];
+	    
+	    out.toArray(array);
+	    return array;
+	}
+	
+	public int distance(T x1, T x2){
+		
+		if(!isDecendent(x2,x1)){
+			throw new RuntimeException();
+		}else{
+			return distance(search(x1), search(x2));
+		}
+		
+	}
+
+	private int distance(BSTNode<T> search, BSTNode<T> search2) {
+		if(search2.getData().equals(search.getData())){
+			return 0;
+		}else
+			return 1 + distance(search, getParent(search2));
+	
+	}
+	
+	
 
 }
